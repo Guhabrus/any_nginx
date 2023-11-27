@@ -1,0 +1,49 @@
+services:
+  nginx:
+    build: 
+      context: ./nginx_static
+      dockerfile: Dockerfile.stat
+
+    image: nginx1
+
+    ports:
+      - 8090:8090
+
+    networks:
+      - nginx_network
+
+
+  nginx_proxy:
+
+    build: 
+      context: ./nginx_proxy
+      dockerfile: Dockerfile.proxy
+
+    image: nginx_proxy_img
+
+    ports:
+      - 8080:8080
+
+    networks:
+      - nginx_network
+
+    
+  nginx_source:
+
+    build: 
+      context: ./nginx_build_source
+      dockerfile: Dockerfile.source
+
+    image: nginx_source_img
+
+    ports:
+      - 80:80
+
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+
+
